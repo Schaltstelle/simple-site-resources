@@ -1,6 +1,7 @@
 .idea/
 node_modules/
 coverage/
+test-out/
 .nyc_output/
 *.log
 *.iml

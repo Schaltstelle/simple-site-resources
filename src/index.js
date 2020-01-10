@@ -1,4 +1,6 @@
 'use strict'
+
+const fs = require('fs')
 const imagemin = require('imagemin')
 // const mozjpeg = require('imagemin-mozjpeg')
 const responsive = require('responsive-images-generator2/lib')
@@ -22,6 +24,7 @@ function imageResponsive(configs) {
         }
         const cs = configs.map(c => {
             const res = Object.assign({}, c)
+            res.rename = res.rename || {}
             res.rename.dirname = dest
             return res
         })

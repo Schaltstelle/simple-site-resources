@@ -3,4 +3,5 @@
 *.iml
 node_modules
 coverage
+test-out
 *.log
