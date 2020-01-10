@@ -1,0 +1,31 @@
+{
+  "name": "simple-site-resources",
+  "description": "Resource pipeline functions for simple-site.",
+  "license": "Apache-2.0",
+  "version": "0.0.1",
+  "private": false,
+  "author": {
+    "name": "Stefan Niederhauser",
+    "email": "ich@nidi.guru"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Schaltstelle/simple-site-resources.git"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha",
+    "coverage": "nyc --reporter=lcov --reporter=text npm run test"
+  },
+  "dependencies": {
+    "chalk": "3.0.0",
+    "debug": "3.1.0",
+    "imagemin": "7.0.1",
+    "imagemin-mozjpeg": "8.0.0",
+    "responsive-images-generator2": "0.2.5"
+  },
+  "devDependencies": {
+    "mocha": "7.0.0",
+    "nyc": "15.0.0"
+  }
+}
