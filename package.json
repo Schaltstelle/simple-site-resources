@@ -2,7 +2,7 @@
   "name": "simple-site-resources",
   "description": "Resource pipeline functions for simple-site.",
   "license": "Apache-2.0",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "author": {
     "name": "Stefan Niederhauser",
