@@ -5,11 +5,12 @@ const chalk = require('chalk')
 const fs = require('fs')
 const path = require('path')
 const imagemin = require('imagemin')
-// const mozjpeg = require('imagemin-mozjpeg')
 const responsive = require('responsive-images-generator2/lib')
+const cleanCss = require('clean-css')
 
 module.exports = {
-    imageMinify, imageResponsive
+    imageMinify, imageResponsive,
+    cssMinify
 }
 
 function imageMinify(config) {
@@ -18,7 +19,7 @@ function imageMinify(config) {
         c.destination = dest
         return input => imagemin([input], c).then(res => {
             const files = [res[0].destinationPath]
-            debug('Minify image', chalk.blue(input), '->', chalk.green(files.map(file => path.relative('', file))))
+            log('Minify image', input, files)
             return {files}
         })
     }
@@ -36,8 +37,35 @@ function imageResponsive(configs) {
             return res
         })
         return input => responsive.generateResponsiveImages([input], cs).then(files => {
-            debug('Responsify image', chalk.blue(input), '->', chalk.green(files.map(file => path.relative('', file))))
+            log('Responsify image', input, files)
             return {files}
         })
     }
+}
+
+function cssMinify(config) {
+    return function (dest) {
+        if (!fs.existsSync(dest)) {
+            fs.mkdirSync(dest, {recursive: true})
+        }
+        const clean = new cleanCss({level: 2, ...config, returnPromise: true})
+        return input => clean.minify(fs.readFileSync(input)).then(res => {
+            const name = path.parse(input)
+            let files = [path.join(dest, name.base)]
+            return new Promise((resolve, reject) => {
+                fs.writeFile(files[0], res.styles, 'utf8', (err, data) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        log('Clean CSS', input, files)
+                        resolve({files})
+                    }
+                })
+            })
+        })
+    }
+}
+
+function log(name, input, files) {
+    debug(name, chalk.blue(input), '->', chalk.green(files.map(file => path.relative('', file))))
 }

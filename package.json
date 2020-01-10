@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "chalk": "3.0.0",
+    "clean-css": "4.2.1",
     "debug": "3.1.0",
     "imagemin": "7.0.1",
     "imagemin-mozjpeg": "8.0.0",
